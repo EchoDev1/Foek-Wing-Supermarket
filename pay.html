@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Pay - Foek Wing Supermarket</title>
+  <meta name="description" content="Payment methods accepted at Foek Wing Supermarket.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .payment-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      display: inline-block;
+    }
+    .payment-card {
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+    .payment-card:hover {
+      transform: translateY(-10px);
+      border-color: var(--secondary-color);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index.html" class="logo-container">
+      <img src="stamp_badge.png" alt="Foek Wing Supermarket Official Logo" class="seal-logo">
+      <span class="site-title">Foek Wing Supermarket</span>
+    </a>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="pay.html" class="active">How to Pay</a></li>
+        <li><a href="reach.html">Reach Us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container chinese-scroll">
+    <img src="simple_stamp.svg" alt="Quality Stamp" class="inner-stamp">
+    <h1 class="page-title">How to Pay</h1>
+    
+    <p style="text-align: center; max-width: 600px; margin: 0 auto 3rem; font-size: 1.1rem;">
+      We strive to make your shopping experience as convenient as possible. We accept a variety of payment methods to suit your needs.
+    </p>
+
+    <div class="grid-3">
+      <div class="chinese-border payment-card">
+        <div class="payment-icon">💶</div>
+        <h3 style="color: var(--primary-color);">Cash</h3>
+        <p>We accept Euro (€) cash payments at all registers.</p>
+      </div>
+      
+      <div class="chinese-border payment-card">
+        <div class="payment-icon">💳</div>
+        <h3 style="color: var(--primary-color);">Bank Cards</h3>
+        <p>Bancontact, Maestro, Visa, and Mastercard are accepted. Contactless payments are fully supported.</p>
+      </div>
+
+      <div class="chinese-border payment-card">
+        <div class="payment-icon">📱</div>
+        <h3 style="color: var(--primary-color);">Mobile Payments</h3>
+        <p>We accept Payconiq, Apple Pay, Google Pay, Alipay, and WeChat Pay for quick and easy mobile transactions.</p>
+      </div>
+
+      <div class="chinese-border payment-card">
+        <div class="payment-icon">💬</div>
+        <h3 style="color: var(--primary-color);">WeChat Pay</h3>
+        <p>Seamlessly pay using your WeChat app. Just scan our QR code directly at the checkout counter.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 <span class="gold-text">Foek Wing Supermarket</span>. All rights reserved.</p>
+    <p>Antwerp, Belgium</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
