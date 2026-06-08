@@ -93,6 +93,7 @@ header {
   border-radius: 50%; /* Seal is circular */
   box-shadow: 0 8px 20px rgba(0,0,0,0.15);
   transition: transform var(--transition-smooth);
+  filter: hue-rotate(130deg) saturate(1.5);
 }
 
 .logo-container:hover .seal-logo {
@@ -100,14 +101,14 @@ header {
 }
 
 .site-title {
-  color: var(--primary-color);
+  color: #2e7d32;
   font-family: var(--font-heading);
   font-weight: 900;
   font-size: 2.2rem;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  -webkit-text-stroke: 0.5px var(--primary-color);
-  text-shadow: 1px 1px 0px var(--primary-color);
+  -webkit-text-stroke: 0.5px #2e7d32;
+  text-shadow: 1px 1px 0px #2e7d32;
 }
 
 nav ul {
