@@ -539,6 +539,12 @@ footer p {
 }
 
 @media (max-width: 768px) {
+  .hero {
+    min-height: auto;
+    aspect-ratio: 1 / 1;
+    background-size: cover;
+    background-position: center center;
+  }
   header {
     flex-direction: column;
     gap: 15px;
