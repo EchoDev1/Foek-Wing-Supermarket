@@ -23,6 +23,8 @@
     }
     .contact-info {
       font-size: 1.1rem;
+      word-break: break-word;
+      overflow-wrap: break-word;
     }
     .contact-info p {
       margin-bottom: 1rem;
@@ -58,24 +60,29 @@
       <div class="grid-2">
         <div>
           <h2>Our Location</h2>
-          <p style="margin-bottom: 2rem; color: #555;">We are conveniently located in the vibrant city of Antwerp, Belgium. Look for the traditional Chinese gate and our bright yellow sign!</p>
+          <p id="dynamic-reach-text" style="margin-bottom: 2rem; color: #555;">We are conveniently located in the vibrant city of Antwerp, Belgium. Look for the traditional Chinese gate and our bright yellow sign!</p>
           
           <div class="contact-info">
-            <p><span class="icon">📍</span> <strong>Address:</strong> Van Wesenbekestraat 11, 2060 Antwerp, Belgium</p>
+            <p><span class="icon">📍</span> <strong>Address:</strong> <span id="dynamic-reach-address">Van Wesenbekestraat 11, 2060 Antwerp, Belgium</span></p>
             <p><span class="icon">⏰</span> <strong>Opening Hours:</strong></p>
-            <ul style="list-style: none; padding-left: 25px; margin-bottom: 1rem;">
+            <ul id="dynamic-reach-hours" style="list-style: none; padding-left: 25px; margin-bottom: 1rem;">
               <li>Mon - Sat: 09:00 - 18:30</li>
               <li>Sunday: 10:00 - 18:00</li>
             </ul>
-            <p><span class="icon">📞</span> <strong>Phone:</strong> +32 3 232 00 00 (Example)</p>
-            <p><span class="icon">✉️</span> <strong>Email:</strong> info@foekwing.be (Example)</p>
-            <p><span class="icon">💬</span> <strong>WeChat:</strong> FoekWing_Antwerp</p>
+            <p><span class="icon">📞</span> <strong>Phone:</strong> <span id="dynamic-reach-phone">+32 3 232 00 00 (Example)</span></p>
+            <p><span class="icon">✉️</span> <strong>Email:</strong> <span id="dynamic-reach-email">info@foekwing.be (Example)</span></p>
+            <p><span class="icon">💬</span> <strong>WeChat:</strong> <span id="dynamic-reach-wechat">FoekWing_Antwerp</span></p>
+          </div>
+          
+          <div id="barcode-container" style="display: none; margin-top: 2rem; text-align: center; background: rgba(255,255,255,0.8); padding: 1.5rem; border-radius: 10px;">
+            <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Scan to Connect</h3>
+            <img id="reach-barcode-img" style="max-width: 200px; border-radius: 10px; border: 2px solid var(--secondary-color);">
           </div>
         </div>
         
         <div>
           <!-- Placeholder for map -->
-          <div class="map-placeholder">
+          <div class="map-placeholder" id="dynamic-reach-map">
             [ Interactive Map integration goes here ]
             <br>
             Antwerp, Belgium

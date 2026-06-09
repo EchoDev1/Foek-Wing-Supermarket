@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Foek Wing Supermarket</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .dashboard-container {
+      max-width: 1000px;
+      margin: 2rem auto;
+      background: var(--bg-light);
+      border-radius: 10px;
+      padding: 2rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    .tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 10px;
+    }
+    .tab-btn {
+      padding: 10px 20px;
+      border: none;
+      background: #eee;
+      cursor: pointer;
+      border-radius: 5px;
+      font-weight: bold;
+    }
+    .tab-btn.active {
+      background: var(--primary-color);
+      color: white;
+    }
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    .form-group textarea {
+      width: 100%;
+      height: 150px;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-family: inherit;
+      resize: vertical;
+    }
+    .save-btn {
+      margin-top: 1rem;
+    }
+    .success-msg {
+      color: green;
+      margin-top: 10px;
+      display: none;
+    }
+    .product-category-edit {
+      border: 1px solid #ddd;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 5px;
+    }
+    .preview-img {
+      max-width: 150px;
+      max-height: 150px;
+      margin-top: 10px;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="index.html" class="logo-container">
+      <img src="stamp_badge.png" alt="Foek Wing Supermarket Official Logo" class="seal-logo">
+      <span class="site-title">Admin Dashboard</span>
+    </a>
+    <nav>
+      <button id="logout-btn" class="btn" style="padding: 0.5rem 1rem;">Logout</button>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div class="dashboard-container">
+      <h2>Content Management</h2>
+      
+      <div class="tabs">
+        <button class="tab-btn active" data-target="home-tab">Home Page</button>
+        <button class="tab-btn" data-target="products-tab">Products Page</button>
+        <button class="tab-btn" data-target="pay-tab">How to Pay</button>
+        <button class="tab-btn" data-target="reach-tab">Reach Us</button>
+      </div>
+
+      <!-- Home Tab -->
+      <div id="home-tab" class="tab-content active">
+        <h3>Edit Home Page Write-up</h3>
+        
+        <div class="form-group">
+          <label>Hero Image</label>
+          <input type="file" id="img-home-hero" accept="image/*" onchange="previewImage(this, 'preview-home-hero')">
+          <button onclick="clearImage('img-home-hero', 'preview-home-hero')" style="margin-top:5px;">Clear Image</button>
+          <img id="preview-home-hero" class="preview-img">
+        </div>
+        
+        <div class="form-group">
+          <label>Welcome Title</label>
+          <input type="text" id="home-title" class="form-control" placeholder="Welcome to Foek Wing">
+        </div>
+        
+        <div class="form-group">
+          <label>Welcome Subtitle</label>
+          <textarea id="home-subtitle" style="height: 80px;"></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label>Section Title (e.g. Authentic Flavors)</label>
+          <input type="text" id="home-auth-title" class="form-control" placeholder="Authentic Flavors">
+        </div>
+
+        <div class="form-group">
+          <label>Main Welcome Text</label>
+          <textarea id="home-text-1"></textarea>
+        </div>
+        <button class="btn save-btn" onclick="saveContent('home')">Save Home Changes</button>
+        <div id="home-msg" class="success-msg">Changes saved successfully!</div>
+      </div>
+
+      <!-- Products Tab -->
+      <div id="products-tab" class="tab-content">
+        <h3>Edit Products Page Write-up</h3>
+        <div class="form-group">
+          <label>Main Products Description</label>
+          <textarea id="products-text-1"></textarea>
+        </div>
+        
+        <h3>Product Category Images</h3>
+        <p>Upload photos from your gallery to replace the icons.</p>
+        
+        <div class="grid-2">
+          <div class="product-category-edit">
+            <label>Fresh Vegetables</label>
+            <input type="file" id="img-fresh-vegetables" accept="image/*" onchange="previewImage(this, 'preview-fresh-vegetables')">
+            <button onclick="clearImage('img-fresh-vegetables', 'preview-fresh-vegetables')" style="margin-top:5px;">Clear Image</button>
+            <img id="preview-fresh-vegetables" class="preview-img">
+          </div>
+          <div class="product-category-edit">
+            <label>Quality Meats</label>
+            <input type="file" id="img-quality-meats" accept="image/*" onchange="previewImage(this, 'preview-quality-meats')">
+            <button onclick="clearImage('img-quality-meats', 'preview-quality-meats')" style="margin-top:5px;">Clear Image</button>
+            <img id="preview-quality-meats" class="preview-img">
+          </div>
+          <div class="product-category-edit">
+            <label>Mushrooms & Tofu</label>
+            <input type="file" id="img-mushrooms-tofu" accept="image/*" onchange="previewImage(this, 'preview-mushrooms-tofu')">
+            <button onclick="clearImage('img-mushrooms-tofu', 'preview-mushrooms-tofu')" style="margin-top:5px;">Clear Image</button>
+            <img id="preview-mushrooms-tofu" class="preview-img">
+          </div>
+          <div class="product-category-edit">
+            <label>Noodles & Rice</label>
+            <input type="file" id="img-noodles-rice" accept="image/*" onchange="previewImage(this, 'preview-noodles-rice')">
+            <button onclick="clearImage('img-noodles-rice', 'preview-noodles-rice')" style="margin-top:5px;">Clear Image</button>
+            <img id="preview-noodles-rice" class="preview-img">
+          </div>
+          <div class="product-category-edit">
+            <label>Sauces & Condiments</label>
+            <input type="file" id="img-sauces-condiments" accept="image/*" onchange="previewImage(this, 'preview-sauces-condiments')">
+            <button onclick="clearImage('img-sauces-condiments', 'preview-sauces-condiments')" style="margin-top:5px;">Clear Image</button>
+            <img id="preview-sauces-condiments" class="preview-img">
+          </div>
+          <div class="product-category-edit">
+            <label>Frozen Foods</label>
+            <input type="file" id="img-frozen-foods" accept="image/*" onchange="previewImage(this, 'preview-frozen-foods')">
+            <button onclick="clearImage('img-frozen-foods', 'preview-frozen-foods')" style="margin-top:5px;">Clear Image</button>
+            <img id="preview-frozen-foods" class="preview-img">
+          </div>
+          <div class="product-category-edit">
+            <label>Beverages</label>
+            <input type="file" id="img-beverages" accept="image/*" onchange="previewImage(this, 'preview-beverages')">
+            <button onclick="clearImage('img-beverages', 'preview-beverages')" style="margin-top:5px;">Clear Image</button>
+            <img id="preview-beverages" class="preview-img">
+          </div>
+          <div class="product-category-edit">
+            <label>Snacks & Sweets</label>
+            <input type="file" id="img-snacks-sweets" accept="image/*" onchange="previewImage(this, 'preview-snacks-sweets')">
+            <button onclick="clearImage('img-snacks-sweets', 'preview-snacks-sweets')" style="margin-top:5px;">Clear Image</button>
+            <img id="preview-snacks-sweets" class="preview-img">
+          </div>
+        </div>
+
+        <button class="btn save-btn" onclick="saveContent('products')">Save Products Changes</button>
+        <div id="products-msg" class="success-msg">Changes saved successfully!</div>
+      </div>
+
+      <!-- How to Pay Tab -->
+      <div id="pay-tab" class="tab-content">
+        <h3>Edit How to Pay Page Write-up</h3>
+        <div class="form-group">
+          <label>Payment Methods Description</label>
+          <textarea id="pay-text-1"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Cash Details</label>
+          <textarea id="pay-cash" style="height: 60px;"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Bank Cards Details</label>
+          <textarea id="pay-bank" style="height: 60px;"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Mobile Payments Details</label>
+          <textarea id="pay-mobile" style="height: 60px;"></textarea>
+        </div>
+        <div class="form-group">
+          <label>WeChat Pay Details</label>
+          <textarea id="pay-wechat" style="height: 60px;"></textarea>
+        </div>
+        <button class="btn save-btn" onclick="saveContent('pay')">Save How to Pay Changes</button>
+        <div id="pay-msg" class="success-msg">Changes saved successfully!</div>
+      </div>
+
+      <!-- Reach Us Tab -->
+      <div id="reach-tab" class="tab-content">
+        <h3>Edit Reach Us Page Write-up</h3>
+        <div class="form-group">
+          <label>Location Description</label>
+          <textarea id="reach-text-1"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Address</label>
+          <input type="text" id="reach-address" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>Opening Hours (HTML allowed)</label>
+          <textarea id="reach-hours" style="height: 80px;"></textarea>
+        </div>
+        <div class="form-group">
+          <label>Phone</label>
+          <input type="text" id="reach-phone" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="text" id="reach-email" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>WeChat</label>
+          <input type="text" id="reach-wechat" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>Interactive Map (Paste HTML/iframe embed code)</label>
+          <textarea id="reach-map"></textarea>
+        </div>
+        
+        <h3>Barcode for Easy Scanning</h3>
+        <div class="form-group">
+          <label>Upload Barcode Image (Optional)</label>
+          <input type="file" id="img-reach-barcode" accept="image/*" onchange="previewImage(this, 'preview-reach-barcode')">
+          <button onclick="clearImage('img-reach-barcode', 'preview-reach-barcode')" style="margin-top:5px;">Clear Barcode</button>
+          <img id="preview-reach-barcode" class="preview-img">
+        </div>
+
+        <button class="btn save-btn" onclick="saveContent('reach')">Save Reach Us Changes</button>
+        <div id="reach-msg" class="success-msg">Changes saved successfully!</div>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="admin.js"></script>
+</body>
+</html>
