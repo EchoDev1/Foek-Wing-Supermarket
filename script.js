@@ -35,111 +35,123 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('scroll', revealCards);
   revealCards(); // Trigger once on load
 
-  // Load Dynamic Content from LocalStorage
-  const rawData = localStorage.getItem('fw_content');
-  if (rawData) {
-    const data = JSON.parse(rawData);
-    
-    if (data.home) {
-      if (data.home.text1) {
-        const el = document.getElementById('dynamic-home-text');
-        if (el) el.innerText = data.home.text1;
+  // Function to load dynamic content
+  const loadDynamicContent = () => {
+    const rawData = localStorage.getItem('fw_content');
+    if (rawData) {
+      const data = JSON.parse(rawData);
+      
+      if (data.home) {
+        if (data.home.text1) {
+          const el = document.getElementById('dynamic-home-text');
+          if (el) el.innerText = data.home.text1;
+        }
+        if (data.home.title) {
+          const el = document.getElementById('dynamic-home-hero-title');
+          if (el) el.innerText = data.home.title;
+        }
+        if (data.home.subtitle) {
+          const el = document.getElementById('dynamic-home-hero-sub');
+          if (el) el.innerText = data.home.subtitle;
+        }
+        if (data.home.authTitle) {
+          const el = document.getElementById('dynamic-home-auth-title');
+          if (el) el.innerText = data.home.authTitle;
+        }
+        if (data.home.heroImg) {
+          const el = document.getElementById('home-hero-section');
+          if (el) el.style.backgroundImage = `url('${data.home.heroImg}')`;
+        }
       }
-      if (data.home.title) {
-        const el = document.getElementById('dynamic-home-hero-title');
-        if (el) el.innerText = data.home.title;
+      
+      if (data.products && data.products.text1) {
+        const el = document.getElementById('dynamic-products-text');
+        if (el) el.innerText = data.products.text1;
       }
-      if (data.home.subtitle) {
-        const el = document.getElementById('dynamic-home-hero-sub');
-        if (el) el.innerText = data.home.subtitle;
+      
+      if (data.products && data.products.images) {
+        for (const [cat, base64] of Object.entries(data.products.images)) {
+          if (base64) {
+            const iconContainer = document.getElementById('icon-' + cat);
+            if (iconContainer) {
+              // Replace text emoji with image
+              iconContainer.innerHTML = `<img src="${base64}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
+            }
+          }
+        }
       }
-      if (data.home.authTitle) {
-        const el = document.getElementById('dynamic-home-auth-title');
-        if (el) el.innerText = data.home.authTitle;
+      
+      if (data.pay) {
+        if (data.pay.text1) {
+          const el = document.getElementById('dynamic-pay-text');
+          if (el) el.innerText = data.pay.text1;
+        }
+        if (data.pay.cash) {
+          const el = document.getElementById('dynamic-pay-cash');
+          if (el) el.innerText = data.pay.cash;
+        }
+        if (data.pay.bank) {
+          const el = document.getElementById('dynamic-pay-bank');
+          if (el) el.innerText = data.pay.bank;
+        }
+        if (data.pay.mobile) {
+          const el = document.getElementById('dynamic-pay-mobile');
+          if (el) el.innerText = data.pay.mobile;
+        }
+        if (data.pay.wechat) {
+          const el = document.getElementById('dynamic-pay-wechat');
+          if (el) el.innerText = data.pay.wechat;
+        }
       }
-      if (data.home.heroImg) {
-        const el = document.getElementById('home-hero-section');
-        if (el) el.style.backgroundImage = `url('${data.home.heroImg}')`;
-      }
-    }
-    
-    if (data.products && data.products.text1) {
-      const el = document.getElementById('dynamic-products-text');
-      if (el) el.innerText = data.products.text1;
-    }
-    
-    if (data.products && data.products.images) {
-      for (const [cat, base64] of Object.entries(data.products.images)) {
-        if (base64) {
-          const iconContainer = document.getElementById('icon-' + cat);
-          if (iconContainer) {
-            // Replace text emoji with image
-            iconContainer.innerHTML = `<img src="${base64}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
+      
+      if (data.reach) {
+        if (data.reach.text1) {
+          const el = document.getElementById('dynamic-reach-text');
+          if (el) el.innerText = data.reach.text1;
+        }
+        if (data.reach.address) {
+          const el = document.getElementById('dynamic-reach-address');
+          if (el) el.innerText = data.reach.address;
+        }
+        if (data.reach.hours) {
+          const el = document.getElementById('dynamic-reach-hours');
+          if (el) el.innerHTML = data.reach.hours;
+        }
+        if (data.reach.phone) {
+          const el = document.getElementById('dynamic-reach-phone');
+          if (el) el.innerText = data.reach.phone;
+        }
+        if (data.reach.email) {
+          const el = document.getElementById('dynamic-reach-email');
+          if (el) el.innerText = data.reach.email;
+        }
+        if (data.reach.wechat) {
+          const el = document.getElementById('dynamic-reach-wechat');
+          if (el) el.innerText = data.reach.wechat;
+        }
+        if (data.reach.map) {
+          const el = document.getElementById('dynamic-reach-map');
+          if (el) el.innerHTML = data.reach.map;
+        }
+        if (data.reach.barcode) {
+          const barcodeContainer = document.getElementById('barcode-container');
+          const barcodeImg = document.getElementById('reach-barcode-img');
+          if (barcodeContainer && barcodeImg) {
+            barcodeImg.src = data.reach.barcode;
+            barcodeContainer.style.display = 'block';
           }
         }
       }
     }
-    
-    if (data.pay) {
-      if (data.pay.text1) {
-        const el = document.getElementById('dynamic-pay-text');
-        if (el) el.innerText = data.pay.text1;
-      }
-      if (data.pay.cash) {
-        const el = document.getElementById('dynamic-pay-cash');
-        if (el) el.innerText = data.pay.cash;
-      }
-      if (data.pay.bank) {
-        const el = document.getElementById('dynamic-pay-bank');
-        if (el) el.innerText = data.pay.bank;
-      }
-      if (data.pay.mobile) {
-        const el = document.getElementById('dynamic-pay-mobile');
-        if (el) el.innerText = data.pay.mobile;
-      }
-      if (data.pay.wechat) {
-        const el = document.getElementById('dynamic-pay-wechat');
-        if (el) el.innerText = data.pay.wechat;
-      }
+  };
+
+  // Initial load
+  loadDynamicContent();
+
+  // Listen for storage events (updates from other tabs)
+  window.addEventListener('storage', (e) => {
+    if (e.key === 'fw_content') {
+      loadDynamicContent();
     }
-    
-    if (data.reach) {
-      if (data.reach.text1) {
-        const el = document.getElementById('dynamic-reach-text');
-        if (el) el.innerText = data.reach.text1;
-      }
-      if (data.reach.address) {
-        const el = document.getElementById('dynamic-reach-address');
-        if (el) el.innerText = data.reach.address;
-      }
-      if (data.reach.hours) {
-        const el = document.getElementById('dynamic-reach-hours');
-        if (el) el.innerHTML = data.reach.hours;
-      }
-      if (data.reach.phone) {
-        const el = document.getElementById('dynamic-reach-phone');
-        if (el) el.innerText = data.reach.phone;
-      }
-      if (data.reach.email) {
-        const el = document.getElementById('dynamic-reach-email');
-        if (el) el.innerText = data.reach.email;
-      }
-      if (data.reach.wechat) {
-        const el = document.getElementById('dynamic-reach-wechat');
-        if (el) el.innerText = data.reach.wechat;
-      }
-      if (data.reach.map) {
-        const el = document.getElementById('dynamic-reach-map');
-        if (el) el.innerHTML = data.reach.map;
-      }
-      if (data.reach.barcode) {
-        const barcodeContainer = document.getElementById('barcode-container');
-        const barcodeImg = document.getElementById('reach-barcode-img');
-        if (barcodeContainer && barcodeImg) {
-          barcodeImg.src = data.reach.barcode;
-          barcodeContainer.style.display = 'block';
-        }
-      }
-    }
-  }
+  });
 });
