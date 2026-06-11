@@ -100,14 +100,28 @@ function saveContent(tabName) {
     });
   }
 
-  localStorage.setItem('fw_content', JSON.stringify(data));
+  try {
+    localStorage.setItem('fw_content', JSON.stringify(data));
 
-  // Show success message
-  const msg = document.getElementById(tabName + '-msg');
-  msg.style.display = 'block';
-  setTimeout(() => {
-    msg.style.display = 'none';
-  }, 3000);
+    // Show success message
+    const msg = document.getElementById(tabName + '-msg');
+    if (msg) {
+      msg.style.display = 'block';
+      setTimeout(() => {
+        msg.style.display = 'none';
+      }, 3000);
+    }
+    
+    // Show a definitive popup alert
+    alert("Success! Your changes have been saved and applied immediately to the website.");
+  } catch (e) {
+    console.error("Save error:", e);
+    if (e.name === 'QuotaExceededError') {
+      alert("Error: Storage limit exceeded. The images you uploaded might be too large. Please use smaller images.");
+    } else {
+      alert("An error occurred while saving. Please try again.");
+    }
+  }
 }
 
 // Load data into fields
