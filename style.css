@@ -185,9 +185,10 @@ nav a:hover::after, nav a.active::after {
 .hero-content {
   position: relative;
   z-index: 2;
-  max-width: 800px;
+  max-width: 900px;
   color: #fff;
-  padding: 0 150px 0 2rem; /* Shifting left to offset the stamp badge */
+  padding: 0 2rem;
+  margin-right: 12vw; /* Shifting left to explicitly avoid the stamp badge */
   animation: slideUpFade 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   opacity: 0;
   transform: translateY(40px);
