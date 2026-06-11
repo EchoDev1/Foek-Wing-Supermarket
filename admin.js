@@ -54,53 +54,52 @@ function clearImage(inputId, previewId) {
 
 // Save Content logic per tab
 async function saveContent(tabName) {
-  const data = JSON.parse(localStorage.getItem('fw_content')) || {};
-  
-  if (!data[tabName]) {
-    data[tabName] = {};
-  }
-
-  if (tabName === 'home') {
-    data.home.text1 = document.getElementById('home-text-1').value;
-    data.home.title = document.getElementById('home-title').value;
-    data.home.subtitle = document.getElementById('home-subtitle').value;
-    data.home.authTitle = document.getElementById('home-auth-title').value;
-    data.home.heroImg = document.getElementById('preview-home-hero').dataset.base64 || null;
-  } else if (tabName === 'pay') {
-    data.pay.text1 = document.getElementById('pay-text-1').value;
-    data.pay.cash = document.getElementById('pay-cash').value;
-    data.pay.bank = document.getElementById('pay-bank').value;
-    data.pay.mobile = document.getElementById('pay-mobile').value;
-    data.pay.wechat = document.getElementById('pay-wechat').value;
-  } else if (tabName === 'reach') {
-    data.reach.text1 = document.getElementById('reach-text-1').value;
-    data.reach.address = document.getElementById('reach-address').value;
-    data.reach.hours = document.getElementById('reach-hours').value;
-    data.reach.phone = document.getElementById('reach-phone').value;
-    data.reach.email = document.getElementById('reach-email').value;
-    data.reach.wechat = document.getElementById('reach-wechat').value;
-    data.reach.map = document.getElementById('reach-map').value;
-    const barcodeBase64 = document.getElementById('preview-reach-barcode').dataset.base64;
-    data.reach.barcode = barcodeBase64 || null; // store null if cleared
-  } else if (tabName === 'products') {
-    data.products.text1 = document.getElementById('products-text-1').value;
-    
-    // Save images
-    const categories = [
-      'fresh-vegetables', 'quality-meats', 'mushrooms-tofu', 
-      'noodles-rice', 'sauces-condiments', 'frozen-foods', 
-      'beverages', 'snacks-sweets'
-    ];
-    
-    if (!data.products.images) data.products.images = {};
-    
-    categories.forEach(cat => {
-      const img = document.getElementById('preview-' + cat).dataset.base64;
-      data.products.images[cat] = img || null;
-    });
-  }
-
   try {
+    const data = JSON.parse(localStorage.getItem('fw_content')) || {};
+    
+    if (!data[tabName]) {
+      data[tabName] = {};
+    }
+
+    if (tabName === 'home') {
+      data.home.text1 = document.getElementById('home-text-1').value;
+      data.home.title = document.getElementById('home-title').value;
+      data.home.subtitle = document.getElementById('home-subtitle').value;
+      data.home.authTitle = document.getElementById('home-auth-title').value;
+      data.home.heroImg = document.getElementById('preview-home-hero').dataset.base64 || null;
+    } else if (tabName === 'pay') {
+      data.pay.text1 = document.getElementById('pay-text-1').value;
+      data.pay.cash = document.getElementById('pay-cash').value;
+      data.pay.bank = document.getElementById('pay-bank').value;
+      data.pay.mobile = document.getElementById('pay-mobile').value;
+      data.pay.wechat = document.getElementById('pay-wechat').value;
+    } else if (tabName === 'reach') {
+      data.reach.text1 = document.getElementById('reach-text-1').value;
+      data.reach.address = document.getElementById('reach-address').value;
+      data.reach.hours = document.getElementById('reach-hours').value;
+      data.reach.phone = document.getElementById('reach-phone').value;
+      data.reach.email = document.getElementById('reach-email').value;
+      data.reach.wechat = document.getElementById('reach-wechat').value;
+      data.reach.map = document.getElementById('reach-map').value;
+      const barcodeBase64 = document.getElementById('preview-reach-barcode').dataset.base64;
+      data.reach.barcode = barcodeBase64 || null;
+    } else if (tabName === 'products') {
+      data.products.text1 = document.getElementById('products-text-1').value;
+      
+      const categories = [
+        'fresh-vegetables', 'quality-meats', 'mushrooms-tofu', 
+        'noodles-rice', 'sauces-condiments', 'frozen-foods', 
+        'beverages', 'snacks-sweets'
+      ];
+      
+      if (!data.products.images) data.products.images = {};
+      
+      categories.forEach(cat => {
+        const img = document.getElementById('preview-' + cat).dataset.base64;
+        data.products.images[cat] = img || null;
+      });
+    }
+
     // 1. Save globally to Firebase Cloud Database
     const dbUrl = `https://foek-wing-supermarket-default-rtdb.europe-west1.firebasedatabase.app/content/${tabName}.json`;
     const response = await fetch(dbUrl, {
