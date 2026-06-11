@@ -188,7 +188,7 @@ nav a:hover::after, nav a.active::after {
   max-width: 900px;
   color: #fff;
   padding: 0 2rem;
-  margin-right: 6vw; /* Shifting left to avoid stamp, but scaled back an inch to the right */
+  margin-right: 9vw; /* Shifting left half an inch */
   margin-bottom: 5vh; /* Taking it up a bit */
   animation: slideUpFade 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   opacity: 0;
