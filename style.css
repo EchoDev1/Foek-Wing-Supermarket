@@ -194,7 +194,7 @@ nav a:hover::after, nav a.active::after {
 }
 
 .hero-content h1 {
-  font-size: clamp(1.2rem, 4vw, 3.8rem);
+  font-size: clamp(1.2rem, 3.5vw, 2.8rem);
   white-space: nowrap;
   margin-bottom: 1.5rem;
   color: #fff;
@@ -532,7 +532,7 @@ footer p {
     padding: 1rem 2rem;
   }
   .hero-content h1 {
-    font-size: clamp(1.2rem, 4vw, 3rem);
+    font-size: clamp(1rem, 3vw, 2.2rem);
   }
   .stamp-badge {
     width: 100px;
@@ -560,7 +560,7 @@ footer p {
     padding: 2.5rem 1.5rem;
   }
   .hero-content h1 {
-    font-size: clamp(1rem, 4.5vw, 2.5rem);
+    font-size: clamp(0.8rem, 2.8vw, 1.8rem);
   }
   .hero-content p {
     font-size: 1.1rem;
