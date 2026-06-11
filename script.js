@@ -36,10 +36,30 @@ document.addEventListener('DOMContentLoaded', () => {
   revealCards(); // Trigger once on load
 
   // Function to load dynamic content
-  const loadDynamicContent = () => {
-    const rawData = localStorage.getItem('fw_content');
-    if (rawData) {
-      const data = JSON.parse(rawData);
+  const loadDynamicContent = async () => {
+    let data = null;
+    
+    try {
+      const dbUrl = 'https://foek-wing-supermarket-default-rtdb.europe-west1.firebasedatabase.app/content.json';
+      const response = await fetch(dbUrl);
+      if (response.ok) {
+        data = await response.json();
+        if (data) {
+          // Backup to localStorage so local admin tabs sync instantly
+          localStorage.setItem('fw_content', JSON.stringify(data));
+        }
+      }
+    } catch (e) {
+      console.error("Firebase load error, falling back to local storage:", e);
+    }
+    
+    // Fallback to local storage if Firebase fails or is empty
+    if (!data) {
+      const rawData = localStorage.getItem('fw_content');
+      if (rawData) data = JSON.parse(rawData);
+    }
+
+    if (data) {
       
       if (data.home) {
         if (data.home.text1) {

@@ -53,7 +53,7 @@ function clearImage(inputId, previewId) {
 }
 
 // Save Content logic per tab
-function saveContent(tabName) {
+async function saveContent(tabName) {
   const data = JSON.parse(localStorage.getItem('fw_content')) || {};
   
   if (!data[tabName]) {
@@ -101,6 +101,19 @@ function saveContent(tabName) {
   }
 
   try {
+    // 1. Save globally to Firebase Cloud Database
+    const dbUrl = `https://foek-wing-supermarket-default-rtdb.europe-west1.firebasedatabase.app/content/${tabName}.json`;
+    const response = await fetch(dbUrl, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data[tabName])
+    });
+
+    if (!response.ok) {
+      throw new Error(`Firebase error! status: ${response.status}`);
+    }
+
+    // 2. Save locally for instant cross-tab updates without refresh
     localStorage.setItem('fw_content', JSON.stringify(data));
 
     // Show success message
@@ -113,22 +126,38 @@ function saveContent(tabName) {
     }
     
     // Show a definitive popup alert
-    alert("Success! Your changes have been saved and applied immediately to the website.");
+    alert("Success! Your changes have been saved to the cloud and applied immediately globally.");
   } catch (e) {
     console.error("Save error:", e);
-    if (e.name === 'QuotaExceededError') {
+    if (e.name === 'QuotaExceededError' || (e.message && e.message.includes('payload too large'))) {
       alert("Error: Storage limit exceeded. The images you uploaded might be too large. Please use smaller images.");
     } else {
-      alert("An error occurred while saving. Please try again.");
+      alert("An error occurred while saving to the cloud database. Check your internet connection or database rules.");
     }
   }
 }
 
 // Load data into fields
-function loadAdminData() {
-  const rawData = localStorage.getItem('fw_content');
-  if (!rawData) return;
-  const data = JSON.parse(rawData);
+async function loadAdminData() {
+  let data = null;
+
+  try {
+    const dbUrl = 'https://foek-wing-supermarket-default-rtdb.europe-west1.firebasedatabase.app/content.json';
+    const response = await fetch(dbUrl);
+    if (response.ok) {
+      data = await response.json();
+    }
+  } catch (e) {
+    console.error("Firebase load error:", e);
+  }
+
+  // Fallback to local storage if Firebase is unreachable or empty
+  if (!data) {
+    const rawData = localStorage.getItem('fw_content');
+    if (rawData) data = JSON.parse(rawData);
+  }
+
+  if (!data) return;
 
   if (data.home) {
     if(data.home.text1) document.getElementById('home-text-1').value = data.home.text1;
