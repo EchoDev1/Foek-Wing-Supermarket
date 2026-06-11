@@ -176,3 +176,8 @@ function loadAdminData() {
     }
   }
 }
+
+// Expose functions globally for inline HTML onclick handlers
+window.previewImage = previewImage;
+window.clearImage = clearImage;
+window.saveContent = saveContent;
