@@ -187,7 +187,7 @@ nav a:hover::after, nav a.active::after {
   z-index: 2;
   max-width: 800px;
   color: #fff;
-  padding: 0 2rem;
+  padding: 0 150px 0 2rem; /* Shifting left to offset the stamp badge */
   animation: slideUpFade 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   opacity: 0;
   transform: translateY(40px);
