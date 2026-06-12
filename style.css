@@ -33,15 +33,9 @@ body {
   overflow-x: hidden;
   opacity: 0; /* Aggressively hide until JS applies current info */
   transition: opacity 0.4s ease, background-color var(--transition-smooth), color var(--transition-smooth);
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
 }
 body.loaded {
   opacity: 1;
-}
-main {
-  flex: 1;
 }
 
 /* For potential dark mode switch, but default we'll keep it light/rich or dark/rich */
