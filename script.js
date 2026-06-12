@@ -40,13 +40,17 @@ document.addEventListener('DOMContentLoaded', () => {
     let data = null;
     
     try {
-      const dbUrl = 'https://foek-wing-supermarket-default-rtdb.europe-west1.firebasedatabase.app/content.json';
-      const response = await fetch(dbUrl);
+      const dbUrl = `https://foek-wing-supermarket-default-rtdb.europe-west1.firebasedatabase.app/content.json?_=${Date.now()}`;
+      const response = await fetch(dbUrl, { cache: 'no-store' });
       if (response.ok) {
         data = await response.json();
         if (data) {
           // Backup to localStorage so local admin tabs sync instantly
-          localStorage.setItem('fw_content', JSON.stringify(data));
+          try {
+            localStorage.setItem('fw_content', JSON.stringify(data));
+          } catch (err) {
+            console.warn("Could not save to localStorage, likely due to quota exceeded from large images.");
+          }
         }
       }
     } catch (e) {
@@ -151,7 +155,24 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if (data.reach.map) {
           const el = document.getElementById('dynamic-reach-map');
-          if (el) el.innerHTML = data.reach.map;
+          if (el) {
+            el.innerHTML = data.reach.map;
+            const overlay = document.createElement('div');
+            overlay.style.position = 'absolute';
+            overlay.style.top = '0';
+            overlay.style.left = '0';
+            overlay.style.width = '100%';
+            overlay.style.height = '100%';
+            overlay.style.cursor = 'pointer';
+            overlay.style.zIndex = '10';
+            overlay.title = 'Click to open in Google Maps';
+            overlay.onclick = () => {
+              const addrEl = document.getElementById('dynamic-reach-address');
+              const address = addrEl ? addrEl.innerText : 'Van Wesenbekestraat 11, 2060 Antwerp, Belgium';
+              window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`, '_blank');
+            };
+            el.appendChild(overlay);
+          }
         }
         if (data.reach.barcode) {
           const barcodeContainer = document.getElementById('barcode-container');
@@ -163,6 +184,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
     }
+    
+    // Reveal the page aggressively only after the current update is injected
+    document.body.classList.add('loaded');
   };
 
   // Initial load
@@ -170,7 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Listen for storage events (updates from other tabs)
   window.addEventListener('storage', (e) => {
-    if (e.key === 'fw_content') {
+    if (e.key === 'fw_content' || e.key === 'fw_ping') {
       loadDynamicContent();
     }
   });

@@ -31,7 +31,11 @@ body {
   color: var(--text-light);
   line-height: 1.6;
   overflow-x: hidden;
-  transition: background-color var(--transition-smooth), color var(--transition-smooth);
+  opacity: 0; /* Aggressively hide until JS applies current info */
+  transition: opacity 0.4s ease, background-color var(--transition-smooth), color var(--transition-smooth);
+}
+body.loaded {
+  opacity: 1;
 }
 
 /* For potential dark mode switch, but default we'll keep it light/rich or dark/rich */
@@ -480,13 +484,13 @@ footer p {
 
 .inner-stamp {
   position: absolute;
-  top: -10px;
-  right: 20px;
-  width: 100px;
-  height: 100px;
+  top: 40px;
+  right: 40px;
+  width: 150px;
+  height: 150px;
   z-index: 10;
-  animation: rotateSlow 25s linear infinite;
-  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));
+  animation: rotateSlow 20s linear infinite;
+  filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3));
   opacity: 0.9;
 }
 
@@ -536,7 +540,7 @@ footer p {
   .hero-content h1 {
     font-size: clamp(1rem, 3vw, 2.2rem);
   }
-  .stamp-badge {
+  .stamp-badge, .inner-stamp {
     width: 100px;
     height: 100px;
   }
@@ -567,7 +571,7 @@ footer p {
   .hero-content p {
     font-size: 1.1rem;
   }
-  .stamp-badge {
+  .stamp-badge, .inner-stamp {
     width: 80px;
     height: 80px;
     top: 10px;

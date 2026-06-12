@@ -113,7 +113,13 @@ async function saveContent(tabName) {
     }
 
     // 2. Save locally for instant cross-tab updates without refresh
-    localStorage.setItem('fw_content', JSON.stringify(data));
+    try {
+      localStorage.setItem('fw_content', JSON.stringify(data));
+    } catch (err) {
+      console.warn("Could not save to localStorage locally due to quota.");
+    }
+    // Always trigger a storage event so frontend tabs reload immediately
+    localStorage.setItem('fw_ping', Date.now().toString());
 
     // Show success message
     const msg = document.getElementById(tabName + '-msg');
@@ -141,8 +147,8 @@ async function loadAdminData() {
   let data = null;
 
   try {
-    const dbUrl = 'https://foek-wing-supermarket-default-rtdb.europe-west1.firebasedatabase.app/content.json';
-    const response = await fetch(dbUrl);
+    const dbUrl = `https://foek-wing-supermarket-default-rtdb.europe-west1.firebasedatabase.app/content.json?_=${Date.now()}`;
+    const response = await fetch(dbUrl, { cache: 'no-store' });
     if (response.ok) {
       data = await response.json();
     }
