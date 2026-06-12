@@ -16,4 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  // Reveal page
+  document.body.classList.add('loaded');
 });

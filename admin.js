@@ -162,6 +162,9 @@ async function loadAdminData() {
     if (rawData) data = JSON.parse(rawData);
   }
 
+  // Always reveal the page regardless of data loading success
+  document.body.classList.add('loaded');
+
   if (!data) return;
 
   if (data.home) {
