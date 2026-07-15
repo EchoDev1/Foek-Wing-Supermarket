@@ -54,7 +54,8 @@
       <img src="stamp_badge.png" alt="Foek Wing Supermarket Official Logo" class="seal-logo">
       <span class="site-title">Foek Wing Supermarket</span>
     </a>
-    <nav>
+    <nav style="display: flex; align-items: center; gap: 5px;">
+      <div id="google_translate_element" style="transform: scale(0.75); transform-origin: right center; z-index: 1000;"></div>
       <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="products.html">Products</a></li>
@@ -112,30 +113,27 @@
       <div class="grid-2">
         <div>
           <h2>Our Warehouse</h2>
-          <p style="margin-bottom: 2rem; color: #555;">For large wholesale orders, pallet pickups, and B2B customers, please visit our main distribution warehouse.</p>
+          <p style="margin-bottom: 2rem; color: #555;" id="dynamic-reach-warehouse-desc">For large wholesale orders, pallet pickups, and B2B customers, please visit our main distribution warehouse.</p>
           
           <div class="contact-info">
-            <p><span class="icon">📍</span> <strong>Warehouse Address:</strong> <span>Kielsbroek 4, 2020 Antwerp, Belgium (Wholesale District)</span></p>
+            <p><span class="icon">📍</span> <strong>Warehouse Address:</strong> <span id="dynamic-reach-warehouse-address">Kielsbroek 4, 2020 Antwerp, Belgium (Wholesale District)</span></p>
             <p><span class="icon">⏰</span> <strong>Wholesale Hours:</strong></p>
-            <ul style="list-style: none; padding-left: 25px; margin-bottom: 1rem;">
-              <li>Mon - Fri: 06:00 - 15:00</li>
-              <li>Sat - Sun: Closed</li>
-            </ul>
-            <p><span class="icon">📞</span> <strong>Warehouse Phone:</strong> <span>+32 3 232 00 01 (Example)</span></p>
+            <div id="dynamic-reach-warehouse-hours" style="white-space: pre-wrap; padding-left: 25px; margin-bottom: 1rem;">Mon - Fri: 06:00 - 15:00
+Sat - Sun: Closed</div>
+            <p><span class="icon">📞</span> <strong>Warehouse Phone:</strong> <span id="dynamic-reach-warehouse-phone">+32 3 232 00 01 (Example)</span></p>
           </div>
         </div>
         
         <div>
           <!-- Placeholder for warehouse map -->
-          <div class="map-placeholder">
-            [ Warehouse Map integration goes here ]
-            <br>
-            Antwerp Wholesale District
+          <div class="map-placeholder" id="dynamic-reach-warehouse-map" style="position: relative;">
+            <iframe src="https://maps.google.com/maps?q=Kielsbroek%204,%202020%20Antwerp,%20Belgium&t=&z=15&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" style="width: 100%; height: 100%;"></iframe>
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; cursor: pointer; z-index: 10;" title="Click to open in Google Maps" onclick="window.open('https://www.google.com/maps/search/?api=1&query=Kielsbroek%204,%202020%20Antwerp,%20Belgium', '_blank')"></div>
           </div>
           
           <div style="background: rgba(212, 175, 55, 0.1); padding: 1.5rem; border-radius: 10px; border-left: 4px solid var(--secondary-color);">
-            <h3 style="color: var(--primary-color); margin-bottom: 0.5rem;">Loading Dock Access</h3>
-            <p>Spacious loading docks available for large transport vehicles. Please call ahead for pallet preparations.</p>
+            <h3 style="color: var(--primary-color); margin-bottom: 0.5rem;" id="dynamic-reach-warehouse-dock-title">Loading Dock Access</h3>
+            <p id="dynamic-reach-warehouse-dock-desc">Spacious loading docks available for large transport vehicles. Please call ahead for pallet preparations.</p>
           </div>
         </div>
       </div>
@@ -147,6 +145,12 @@
     <p>Antwerp, Belgium</p>
   </footer>
 
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'nl,en,zh-CN,zh-TW', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+    }
+  </script>
+  <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
   <script type="module" src="./script.js"></script>
 </body>
 </html>

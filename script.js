@@ -139,7 +139,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         if (data.reach.hours) {
           const el = document.getElementById('dynamic-reach-hours');
-          if (el) el.innerHTML = data.reach.hours;
+          if (el) {
+            el.innerText = data.reach.hours;
+            el.style.whiteSpace = 'pre-wrap';
+          }
         }
         if (data.reach.phone) {
           const el = document.getElementById('dynamic-reach-phone');
@@ -156,7 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (data.reach.map) {
           const el = document.getElementById('dynamic-reach-map');
           if (el) {
-            el.innerHTML = data.reach.map;
+            el.innerHTML = `<iframe src="https://maps.google.com/maps?q=${encodeURIComponent(data.reach.map)}&t=&z=15&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>`;
             const overlay = document.createElement('div');
             overlay.style.position = 'absolute';
             overlay.style.top = '0';
@@ -168,7 +171,55 @@ document.addEventListener('DOMContentLoaded', () => {
             overlay.title = 'Click to open in Google Maps';
             overlay.onclick = () => {
               const addrEl = document.getElementById('dynamic-reach-address');
-              const address = addrEl ? addrEl.innerText : 'Van Wesenbekestraat 11, 2060 Antwerp, Belgium';
+              const address = addrEl ? addrEl.innerText : data.reach.map;
+              window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`, '_blank');
+            };
+            el.appendChild(overlay);
+          }
+        }
+        
+        if (data.reach.warehouseAddress) {
+          const el = document.getElementById('dynamic-reach-warehouse-address');
+          if (el) el.innerText = data.reach.warehouseAddress;
+        }
+        
+        if (data.reach.warehouseDesc) {
+          const el = document.getElementById('dynamic-reach-warehouse-desc');
+          if (el) el.innerText = data.reach.warehouseDesc;
+        }
+        if (data.reach.warehouseHours) {
+          const el = document.getElementById('dynamic-reach-warehouse-hours');
+          if (el) el.innerText = data.reach.warehouseHours;
+        }
+        if (data.reach.warehousePhone) {
+          const el = document.getElementById('dynamic-reach-warehouse-phone');
+          if (el) el.innerText = data.reach.warehousePhone;
+        }
+        if (data.reach.warehouseDockTitle) {
+          const el = document.getElementById('dynamic-reach-warehouse-dock-title');
+          if (el) el.innerText = data.reach.warehouseDockTitle;
+        }
+        if (data.reach.warehouseDockDesc) {
+          const el = document.getElementById('dynamic-reach-warehouse-dock-desc');
+          if (el) el.innerText = data.reach.warehouseDockDesc;
+        }
+        
+        if (data.reach.warehouseMap) {
+          const el = document.getElementById('dynamic-reach-warehouse-map');
+          if (el) {
+            el.innerHTML = `<iframe src="https://maps.google.com/maps?q=${encodeURIComponent(data.reach.warehouseMap)}&t=&z=15&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>`;
+            const overlay = document.createElement('div');
+            overlay.style.position = 'absolute';
+            overlay.style.top = '0';
+            overlay.style.left = '0';
+            overlay.style.width = '100%';
+            overlay.style.height = '100%';
+            overlay.style.cursor = 'pointer';
+            overlay.style.zIndex = '10';
+            overlay.title = 'Click to open in Google Maps';
+            overlay.onclick = () => {
+              const addrEl = document.getElementById('dynamic-reach-warehouse-address');
+              const address = addrEl ? addrEl.innerText : data.reach.warehouseMap;
               window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`, '_blank');
             };
             el.appendChild(overlay);
@@ -198,4 +249,24 @@ document.addEventListener('DOMContentLoaded', () => {
       loadDynamicContent();
     }
   });
+
+  // Forcefully remove Google Translate banner
+  const hideGoogleBanner = () => {
+    const banners = document.querySelectorAll('.goog-te-banner-frame, .VIpgJd-ZVi9od-aZ2wEe-wOHMyf, .VIpgJd-ZVi9od-ORHb-OEVmcd');
+    banners.forEach(b => {
+      b.style.display = 'none';
+      b.style.visibility = 'hidden';
+      b.style.opacity = '0';
+      b.style.height = '0px';
+    });
+    
+    // Google sets body top to 40px
+    if (document.body.style.top !== '0px') {
+      document.body.style.top = '0px';
+    }
+    if (document.body.style.position !== 'static' && document.body.style.position !== '') {
+      document.body.style.position = 'static';
+    }
+  };
+  setInterval(hideGoogleBanner, 100);
 });

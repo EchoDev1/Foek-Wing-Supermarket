@@ -81,6 +81,13 @@ async function saveContent(tabName) {
       data.reach.email = document.getElementById('reach-email').value;
       data.reach.wechat = document.getElementById('reach-wechat').value;
       data.reach.map = document.getElementById('reach-map').value;
+      data.reach.warehouseAddress = document.getElementById('reach-warehouse-address').value;
+      data.reach.warehouseMap = document.getElementById('reach-warehouse-map').value;
+      data.reach.warehouseDesc = document.getElementById('reach-warehouse-desc').value;
+      data.reach.warehouseHours = document.getElementById('reach-warehouse-hours').value;
+      data.reach.warehousePhone = document.getElementById('reach-warehouse-phone').value;
+      data.reach.warehouseDockTitle = document.getElementById('reach-warehouse-dock-title').value;
+      data.reach.warehouseDockDesc = document.getElementById('reach-warehouse-dock-desc').value;
       const barcodeBase64 = document.getElementById('preview-reach-barcode').dataset.base64;
       data.reach.barcode = barcodeBase64 || null;
     } else if (tabName === 'products') {
@@ -194,6 +201,13 @@ async function loadAdminData() {
     if(data.reach.email) document.getElementById('reach-email').value = data.reach.email;
     if(data.reach.wechat) document.getElementById('reach-wechat').value = data.reach.wechat;
     if(data.reach.map) document.getElementById('reach-map').value = data.reach.map;
+    if(data.reach.warehouseAddress) document.getElementById('reach-warehouse-address').value = data.reach.warehouseAddress;
+    if(data.reach.warehouseMap) document.getElementById('reach-warehouse-map').value = data.reach.warehouseMap;
+    if(data.reach.warehouseDesc) document.getElementById('reach-warehouse-desc').value = data.reach.warehouseDesc;
+    if(data.reach.warehouseHours) document.getElementById('reach-warehouse-hours').value = data.reach.warehouseHours;
+    if(data.reach.warehousePhone) document.getElementById('reach-warehouse-phone').value = data.reach.warehousePhone;
+    if(data.reach.warehouseDockTitle) document.getElementById('reach-warehouse-dock-title').value = data.reach.warehouseDockTitle;
+    if(data.reach.warehouseDockDesc) document.getElementById('reach-warehouse-dock-desc').value = data.reach.warehouseDockDesc;
     if(data.reach.barcode) {
       document.getElementById('preview-reach-barcode').src = data.reach.barcode;
       document.getElementById('preview-reach-barcode').dataset.base64 = data.reach.barcode;
