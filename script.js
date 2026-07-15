@@ -64,8 +64,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (data) {
-      
-      if (data.home) {
+      try {
+        if (data.home) {
         if (data.home.text1) {
           const el = document.getElementById('dynamic-home-text');
           if (el) el.innerText = data.home.text1;
@@ -233,6 +233,9 @@ document.addEventListener('DOMContentLoaded', () => {
             barcodeContainer.style.display = 'block';
           }
         }
+        }
+      } catch (err) {
+        console.error("Error injecting dynamic content:", err);
       }
     }
     
