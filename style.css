@@ -161,63 +161,6 @@ nav a:hover::after, nav a.active::after {
   width: 100%;
 }
 
-/* Google Translate fixes to prevent layout shifts and hide banners */
-.goog-te-banner-frame,
-.VIpgJd-ZVi9od-aZ2wEe-wOHMyf,
-.VIpgJd-ZVi9od-ORHb-OEVmcd { 
-    display: none !important; 
-    visibility: hidden !important; 
-    height: 0 !important;
-    opacity: 0 !important;
-}
-.goog-te-banner-frame.skiptranslate { display: none !important; visibility: hidden !important; }
-body { top: 0px !important; position: static !important; }
-
-/* Hide Google Translate hover tooltips and highlights */
-#goog-gt-tt, .goog-te-balloon-frame { display: none !important; visibility: hidden !important; }
-.goog-text-highlight { background: none !important; box-shadow: none !important; }
-
-/* Constrain the Google Translate widget */
-#google_translate_element {
-  display: flex !important;
-  align-items: center !important;
-  height: 100% !important;
-  overflow: hidden !important;
-  white-space: nowrap !important;
-}
-
-#google_translate_element .goog-te-gadget-simple {
-  background-color: rgba(255, 255, 255, 0.1) !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
-  border-radius: 8px !important;
-  padding: 5px 10px !important;
-  font-family: 'Inter', sans-serif !important;
-  display: flex !important;
-  align-items: center !important;
-  box-sizing: border-box !important;
-  white-space: nowrap !important;
-}
-
-#google_translate_element .goog-te-gadget-simple img {
-  display: none !important; /* Hide Google icon to save space */
-}
-
-#google_translate_element .goog-te-gadget-simple .goog-te-menu-value {
-  color: white !important;
-  text-decoration: none !important;
-  margin: 0 !important;
-  display: flex !important;
-  align-items: center !important;
-  white-space: nowrap !important;
-}
-
-#google_translate_element .goog-te-gadget-simple .goog-te-menu-value span {
-  color: white !important;
-  text-decoration: none !important;
-  border-left: none !important;
-  font-size: 0.9rem !important;
-}
-
 /* Ensure translated fonts do not break flex containers */
 font {
   display: inline !important;

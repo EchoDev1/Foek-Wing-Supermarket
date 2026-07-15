@@ -54,8 +54,8 @@
       <img src="stamp_badge.png" alt="Foek Wing Supermarket Official Logo" class="seal-logo">
       <span class="site-title">Foek Wing Supermarket</span>
     </a>
-    <nav style="display: flex; align-items: center; gap: 5px;">
-      <div id="google_translate_element" style="transform: scale(0.75); transform-origin: right center; z-index: 1000;"></div>
+    <nav style="display: flex; align-items: center; gap: 15px;">
+      <div class="gtranslate_wrapper"></div>
       <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="products.html">Products</a></li>
@@ -145,12 +145,8 @@ Sat - Sun: Closed</div>
     <p>Antwerp, Belgium</p>
   </footer>
 
-  <script type="text/javascript">
-    function googleTranslateElementInit() {
-      new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'nl,en,zh-CN,zh-TW', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
-    }
-  </script>
-  <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+  <script>window.gtranslateSettings = {"default_language":"en","languages":["en","nl","zh-CN","zh-TW"],"wrapper_selector":".gtranslate_wrapper","globe_color":"#2e7d32"}</script>
+  <script src="https://cdn.gtranslate.net/widgets/latest/globe.js" defer></script>
   <script type="module" src="./script.js"></script>
 </body>
 </html>

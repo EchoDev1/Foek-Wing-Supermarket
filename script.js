@@ -249,24 +249,4 @@ document.addEventListener('DOMContentLoaded', () => {
       loadDynamicContent();
     }
   });
-
-  // Forcefully remove Google Translate banner
-  const hideGoogleBanner = () => {
-    const banners = document.querySelectorAll('.goog-te-banner-frame, .VIpgJd-ZVi9od-aZ2wEe-wOHMyf, .VIpgJd-ZVi9od-ORHb-OEVmcd');
-    banners.forEach(b => {
-      b.style.display = 'none';
-      b.style.visibility = 'hidden';
-      b.style.opacity = '0';
-      b.style.height = '0px';
-    });
-    
-    // Google sets body top to 40px
-    if (document.body.style.top !== '0px') {
-      document.body.style.top = '0px';
-    }
-    if (document.body.style.position !== 'static' && document.body.style.position !== '') {
-      document.body.style.position = 'static';
-    }
-  };
-  setInterval(hideGoogleBanner, 100);
 });
