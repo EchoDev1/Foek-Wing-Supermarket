@@ -572,12 +572,13 @@ footer p {
     gap: 15px;
   }
   .logo-container {
-    flex-direction: column;
-    gap: 5px;
-    text-align: center;
+    flex-direction: row;
+    gap: 10px;
+    text-align: left;
+    align-items: center;
   }
   .site-title {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     white-space: normal;
   }
   .seal-logo {
