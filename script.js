@@ -35,37 +35,9 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('scroll', revealCards);
   revealCards(); // Trigger once on load
 
-  // Function to load dynamic content
-  const loadDynamicContent = async () => {
-    let data = null;
-    
+  const renderData = (data) => {
     try {
-      const dbUrl = `https://foek-wing-supermarket-default-rtdb.europe-west1.firebasedatabase.app/content.json?_=${Date.now()}`;
-      const response = await fetch(dbUrl, { cache: 'no-store' });
-      if (response.ok) {
-        data = await response.json();
-        if (data) {
-          // Backup to localStorage so local admin tabs sync instantly
-          try {
-            localStorage.setItem('fw_content', JSON.stringify(data));
-          } catch (err) {
-            console.warn("Could not save to localStorage, likely due to quota exceeded from large images.");
-          }
-        }
-      }
-    } catch (e) {
-      console.error("Firebase load error, falling back to local storage:", e);
-    }
-    
-    // Fallback to local storage if Firebase fails or is empty
-    if (!data) {
-      const rawData = localStorage.getItem('fw_content');
-      if (rawData) data = JSON.parse(rawData);
-    }
-
-    if (data) {
-      try {
-        if (data.home) {
+      if (data.home) {
         if (data.home.text1) {
           const el = document.getElementById('dynamic-home-text');
           if (el) el.innerText = data.home.text1;
@@ -98,7 +70,6 @@ document.addEventListener('DOMContentLoaded', () => {
           if (base64) {
             const iconContainer = document.getElementById('icon-' + cat);
             if (iconContainer) {
-              // Replace text emoji with image
               iconContainer.innerHTML = `<img src="${base64}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
             }
           }
@@ -233,13 +204,44 @@ document.addEventListener('DOMContentLoaded', () => {
             barcodeContainer.style.display = 'block';
           }
         }
-        }
-      } catch (err) {
-        console.error("Error injecting dynamic content:", err);
       }
+    } catch (err) {
+      console.error("Error injecting dynamic content:", err);
+    }
+  };
+
+  const loadDynamicContent = async () => {
+    // 1. Immediately load and render from localStorage if available (Stale-While-Revalidate)
+    const rawData = localStorage.getItem('fw_content');
+    if (rawData) {
+      try {
+        const cachedData = JSON.parse(rawData);
+        renderData(cachedData);
+        document.body.classList.add('loaded'); // Show page instantly
+      } catch(e) {}
+    }
+
+    // 2. Fetch fresh data in the background
+    try {
+      const dbUrl = `https://foek-wing-supermarket-default-rtdb.europe-west1.firebasedatabase.app/content.json?_=${Date.now()}`;
+      const response = await fetch(dbUrl, { cache: 'no-store' });
+      if (response.ok) {
+        const data = await response.json();
+        if (data) {
+          // Re-render with fresh data and save to cache
+          renderData(data);
+          try {
+            localStorage.setItem('fw_content', JSON.stringify(data));
+          } catch (err) {
+            console.warn("Could not save to localStorage, likely due to quota exceeded from large images.");
+          }
+        }
+      }
+    } catch (e) {
+      console.error("Firebase load error:", e);
     }
     
-    // Reveal the page aggressively only after the current update is injected
+    // Always ensure body is revealed (in case it wasn't cached)
     document.body.classList.add('loaded');
   };
 
