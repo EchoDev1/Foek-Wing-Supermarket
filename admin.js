@@ -32,14 +32,43 @@ document.addEventListener('DOMContentLoaded', () => {
   loadAdminData();
 });
 
-// Image Preview & Base64 Conversion
+// Image Preview & Base64 Compression
 function previewImage(input, previewId) {
   const file = input.files[0];
   if (file) {
     const reader = new FileReader();
     reader.onload = function(e) {
-      document.getElementById(previewId).src = e.target.result;
-      document.getElementById(previewId).dataset.base64 = e.target.result;
+      const img = new Image();
+      img.onload = function() {
+        const MAX_WIDTH = 800;
+        const MAX_HEIGHT = 800;
+        let width = img.width;
+        let height = img.height;
+
+        if (width > height) {
+          if (width > MAX_WIDTH) {
+            height *= MAX_WIDTH / width;
+            width = MAX_WIDTH;
+          }
+        } else {
+          if (height > MAX_HEIGHT) {
+            width *= MAX_HEIGHT / height;
+            height = MAX_HEIGHT;
+          }
+        }
+
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+
+        // Compress aggressively to webp at 80% quality to avoid quota issues
+        const dataUrl = canvas.toDataURL('image/webp', 0.8);
+        document.getElementById(previewId).src = dataUrl;
+        document.getElementById(previewId).dataset.base64 = dataUrl;
+      }
+      img.src = e.target.result;
     }
     reader.readAsDataURL(file);
   }

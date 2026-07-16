@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
           if (base64) {
             const iconContainer = document.getElementById('icon-' + cat);
             if (iconContainer) {
-              iconContainer.innerHTML = `<img src="${base64}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
+              iconContainer.innerHTML = `<img src="${base64}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">`;
             }
           }
         }
