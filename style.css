@@ -571,6 +571,19 @@ footer p {
     flex-direction: column;
     gap: 15px;
   }
+  .logo-container {
+    flex-direction: column;
+    gap: 5px;
+    text-align: center;
+  }
+  .site-title {
+    font-size: 1.3rem;
+    white-space: normal;
+  }
+  .seal-logo {
+    height: 60px;
+    width: 60px;
+  }
   nav ul {
     gap: 15px;
     flex-wrap: wrap;
