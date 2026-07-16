@@ -98,10 +98,8 @@ async function saveContent(tabName) {
       data.home.heroImg = document.getElementById('preview-home-hero').dataset.base64 || null;
     } else if (tabName === 'pay') {
       data.pay.text1 = document.getElementById('pay-text-1').value;
-      data.pay.cash = document.getElementById('pay-cash').value;
-      data.pay.bank = document.getElementById('pay-bank').value;
-      data.pay.mobile = document.getElementById('pay-mobile').value;
-      data.pay.wechat = document.getElementById('pay-wechat').value;
+      const qrBase64 = document.getElementById('preview-pay-qr').dataset.base64;
+      data.pay.qrImage = qrBase64 || null;
     } else if (tabName === 'reach') {
       data.reach.text1 = document.getElementById('reach-text-1').value;
       data.reach.address = document.getElementById('reach-address').value;
@@ -216,10 +214,10 @@ async function loadAdminData() {
   
   if (data.pay) {
     if(data.pay.text1) document.getElementById('pay-text-1').value = data.pay.text1;
-    if(data.pay.cash) document.getElementById('pay-cash').value = data.pay.cash;
-    if(data.pay.bank) document.getElementById('pay-bank').value = data.pay.bank;
-    if(data.pay.mobile) document.getElementById('pay-mobile').value = data.pay.mobile;
-    if(data.pay.wechat) document.getElementById('pay-wechat').value = data.pay.wechat;
+    if(data.pay.qrImage) {
+      document.getElementById('preview-pay-qr').src = data.pay.qrImage;
+      document.getElementById('preview-pay-qr').dataset.base64 = data.pay.qrImage;
+    }
   }
 
   if (data.reach) {

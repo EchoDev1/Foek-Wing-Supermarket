@@ -81,21 +81,12 @@ document.addEventListener('DOMContentLoaded', () => {
           const el = document.getElementById('dynamic-pay-text');
           if (el) el.innerText = data.pay.text1;
         }
-        if (data.pay.cash) {
-          const el = document.getElementById('dynamic-pay-cash');
-          if (el) el.innerText = data.pay.cash;
-        }
-        if (data.pay.bank) {
-          const el = document.getElementById('dynamic-pay-bank');
-          if (el) el.innerText = data.pay.bank;
-        }
-        if (data.pay.mobile) {
-          const el = document.getElementById('dynamic-pay-mobile');
-          if (el) el.innerText = data.pay.mobile;
-        }
-        if (data.pay.wechat) {
-          const el = document.getElementById('dynamic-pay-wechat');
-          if (el) el.innerText = data.pay.wechat;
+        if (data.pay.qrImage) {
+          const qrEl = document.getElementById('dynamic-pay-qr');
+          if (qrEl) {
+            qrEl.src = data.pay.qrImage;
+            qrEl.style.display = 'inline-block';
+          }
         }
       }
       

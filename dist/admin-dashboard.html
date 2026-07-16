@@ -72,7 +72,7 @@
       display: block;
     }
   </style>
-  <script type="module" crossorigin src="/assets/adminDashboard-B38kqH4S.js"></script>
+  <script type="module" crossorigin src="/assets/adminDashboard-DB5TenE6.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/style-B1GqFCso.js">
   <link rel="stylesheet" crossorigin href="/assets/style-DkcpHauh.css">
 </head>
@@ -94,7 +94,7 @@
       <div class="tabs">
         <button class="tab-btn active" data-target="home-tab">Home Page</button>
         <button class="tab-btn" data-target="products-tab">Products Page</button>
-        <button class="tab-btn" data-target="pay-tab">How to Pay</button>
+        <button class="tab-btn" data-target="pay-tab">Foek Wing Cart</button>
         <button class="tab-btn" data-target="reach-tab">Reach Us</button>
       </div>
 
@@ -198,30 +198,20 @@
         <div id="products-msg" class="success-msg">Changes saved successfully!</div>
       </div>
 
-      <!-- How to Pay Tab -->
+      <!-- Foek Wing Cart Tab -->
       <div id="pay-tab" class="tab-content">
-        <h3>Edit How to Pay Page Write-up</h3>
+        <h3>Edit Foek Wing Cart Page Write-up</h3>
         <div class="form-group">
-          <label>Payment Methods Description</label>
-          <textarea id="pay-text-1"></textarea>
+          <label>Cart Page Description</label>
+          <textarea id="pay-text-1" placeholder="Visit our premium shopping cart by scanning Our online shop using wechat Scan."></textarea>
         </div>
         <div class="form-group">
-          <label>Cash Details</label>
-          <textarea id="pay-cash" style="height: 60px;"></textarea>
+          <label>Upload QR Code / Cart Image</label>
+          <input type="file" id="img-pay-qr" accept="image/*" onchange="previewImage(this, 'preview-pay-qr')">
+          <button onclick="clearImage('img-pay-qr', 'preview-pay-qr')" style="margin-top:5px;">Clear Image</button>
+          <img id="preview-pay-qr" class="preview-img">
         </div>
-        <div class="form-group">
-          <label>Bank Cards Details</label>
-          <textarea id="pay-bank" style="height: 60px;"></textarea>
-        </div>
-        <div class="form-group">
-          <label>Mobile Payments Details</label>
-          <textarea id="pay-mobile" style="height: 60px;"></textarea>
-        </div>
-        <div class="form-group">
-          <label>WeChat Pay Details</label>
-          <textarea id="pay-wechat" style="height: 60px;"></textarea>
-        </div>
-        <button class="btn save-btn" onclick="saveContent('pay')">Save How to Pay Changes</button>
+        <button class="btn save-btn" onclick="saveContent('pay')">Save Foek Wing Cart Changes</button>
         <div id="pay-msg" class="success-msg">Changes saved successfully!</div>
       </div>
 
